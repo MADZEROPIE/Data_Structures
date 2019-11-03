@@ -6,9 +6,9 @@ before_script:
   - mkdir ../build
   - cd ../build
 script:
-  - cmake ../Queue
+  - cmake ../Data_Structures
   - make -j
   - cd ./bin/
-  - ./test_queue
+  - ./test_data_struct
 notifications:
   email: false
