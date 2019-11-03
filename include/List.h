@@ -69,7 +69,7 @@ void List<T>::push_back(T& data)
 		head = new Node(data);
 	else {
 		Node* current = this->head;
-		while (current->pNext != NULL)
+		while (current->pNext != nullptr)
 			current = current->pNext;
 		current->pNext = new Node(data);
 	}
@@ -129,7 +129,7 @@ void List<T>::insert(T& data, int index)
 	if (!index)
 		push_front(data);
 	else {
-		Node<T>* previous = this->head;
+		Node* previous = this->head;
 		for (int i = 0; i < index - 1; i++)
 			previous = previous->pNext;
 		previous->pNext = new Node(data, previous->pNext);

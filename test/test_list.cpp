@@ -4,7 +4,7 @@
 
 TEST(List, can_create_list)
 {
-	ASSERT_NO_THROW(List<int>);
+	ASSERT_NO_THROW(List<int>());
 }
 
 TEST(List, can_create_list_with_positive_length)
