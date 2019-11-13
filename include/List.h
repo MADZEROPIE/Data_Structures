@@ -18,6 +18,12 @@ public:
 	void removeAt(int index);
 	void insert(T& data, int index);
 	T& operator [](const int n);
+	T& reversed_ind (const int k) {
+		return operator[](Size - k - 1);
+	}
+	T& find_middle() {
+		return operator[](Size/2);
+	}
 
 private:
 
