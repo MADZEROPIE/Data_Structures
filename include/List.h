@@ -22,7 +22,21 @@ public:
 		return operator[](Size - k - 1);
 	}
 	T& find_middle() {
-		return operator[](Size/2);
+		if (head != nullptr) {
+			Node* mid = head;
+			Node* curr = head;
+			size_t count = 0, count2 = 0;
+			while (curr != nullptr) {
+				++count;
+				curr = curr->pNext;
+				if ((count >> 1) > count2) {
+					++count2;
+					mid = mid->pNext;
+				}
+			}
+			return mid->data;
+		}
+		//return operator[](Size/2); //простой способ
 	}
 
 private:
