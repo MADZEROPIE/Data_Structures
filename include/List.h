@@ -18,9 +18,20 @@ public:
 	void removeAt(int index);
 	void insert(T& data, int index);
 	T& operator [](const int n);
+
 	T& reversed_ind (const int k) {
-		return operator[](Size - k - 1);
+		if (k < 0 || k >= Size) throw k;
+		Node* nod = head;
+		Node* curr = head;
+		for(int i=0;i<=k;++i) curr = curr->pNext;
+		while (curr != nullptr) {
+			curr = curr->pNext;
+			nod = nod->pNext;
+		}
+		return nod->data;
+		//return operator[](Size - k - 1); //простой способ
 	}
+
 	T& find_middle() {
 		if (head != nullptr) {
 			Node* mid = head;
