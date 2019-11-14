@@ -25,7 +25,7 @@ public:
 		if (head != nullptr) {
 			Node* mid = head;
 			Node* curr = head;
-			size_t count = 0, count2 = 0;
+			unsigned int count = 0, count2 = 0;
 			while (curr != nullptr) {
 				++count;
 				curr = curr->pNext;
