@@ -2,6 +2,8 @@
 
 #include <gtest.h>
 
+#ifndef STACK_BY_LIST //ћожно добавл€ть DISABLED к тестам, а можно делать так 
+
 TEST(TStack, can_create_stack_with_positive_length)
 {
 	ASSERT_NO_THROW(TStack<int>(5));
@@ -11,6 +13,7 @@ TEST(TStack, cant_create_stack_with_negative_length)
 {
 	ASSERT_ANY_THROW(TStack<int>(-15));
 }
+#endif // STACK_BY_LIST
 
 TEST(TStack, can_push_and_get_element) {
 	TStack<int> st(5);
