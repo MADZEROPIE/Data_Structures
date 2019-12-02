@@ -17,6 +17,9 @@ int main(int argc, char** argv)
 	for (auto it = lis.begin(); it != lis.end(); ++it) cout << it->data<<' ';
 	//std::sort(lis.begin(), lis.end());
 	std::cout << std::endl;
+	lis.remove_after(lis.begin());
+	int t = 375;
+	lis.insert_after(t, lis.begin());
 	for (auto it = lis.begin(); it != lis.end(); ++it) cout << *it << ' ';
 	return 0;
 }
