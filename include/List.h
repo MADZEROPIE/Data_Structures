@@ -52,7 +52,7 @@ public:
 			curr = curr->pNext;
 			return tmp;
 		}
-
+		friend class List;
 
 	};
 public:
@@ -68,7 +68,22 @@ public:
 	void clear();
 	void pop_back();
 	void removeAt(int index);
+	void remove_after(List::iterator pr) {
+		if (pr == finish) return pop_front();
+		else if (pr.curr->pNext == nullptr) return;
+		Node* tmp = pr.curr->pNext->pNext;
+		delete pr.curr->pNext;
+		pr.curr->pNext = tmp;
+		--Size;
+	}
+
 	void insert(T& data, int index);
+	void insert_after(T& data, List::iterator pr) {
+		if (pr == finish) return push_front(data);
+		pr.curr->pNext = new Node(data, pr.curr->pNext);
+		++Size;
+	}
+	
 	T& operator [](const int n);
 
 	T& reversed_ind (const int k) {
