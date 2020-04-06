@@ -19,11 +19,12 @@ public:
 		vec.push_back(pol);
 	}
 	void Delete(Key _key) {
-		vec.erase(
-			std::find_if(vec.begin(), vec.end(), [&_key](const Named_Polynom& pol) { // RU: ƒа, слишком сложно, но давно хотел попробовать...
+		auto it = std::find_if(vec.begin(), vec.end(), [&_key](const Named_Polynom& pol) { // RU: ƒа, слишком сложно, но давно хотел попробовать...
 				return pol.GetKey() == _key;
-			})
-		);
+		});
+		if (it == vec.end()) throw "Polynom doesn't exist";
+		*it = std::move(*(vec.end() - 1));
+		vec.pop_back();
 	}
 	Named_Polynom Search(Key _key) {	
 		auto it = std::find_if(vec.begin(), vec.end(), [&_key](const Named_Polynom& pol) { // RU: ƒа, слишком сложно, но давно хотел попробовать...
