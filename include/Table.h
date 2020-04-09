@@ -1,7 +1,7 @@
 //#include <vector> Already used in polynom.h
 #include "polynom.h"
 
-//RU: Я знаю, что реализацию надо перенести в .cpp, но мне лень. Перенесу после хэш-таблиц
+//RU: Я знаю, что реализацию надо перенести в .cpp, но мне лень. Перенесу после хэш-таблиц. Или нет.
 
 class Table {
 public:
@@ -72,4 +72,52 @@ public:
 		return *it;
 	}
 	void clear() { vec.clear(); }
+};
+
+class HashTable: public Table{
+
+private: 
+	std::vector <std::vector<Named_Polynom> >vec;
+	size_t a, b;
+	
+private:
+	size_t HashFunc(const std::string& str) {
+		size_t sum = 0;
+		for (auto elem : str) sum += elem; //why???
+		return (sum * a + b) % vec.size();
+	}
+
+public:
+
+	HashTable(size_t size = 15) :vec(size) {
+		a = rand() % size;
+		b = rand() % size;
+	}
+
+	void Insert(const Named_Polynom& pol) {
+		vec[HashFunc(pol.GetKey().key)].push_back(pol);
+	}
+
+	void Delete(Key _key) {
+		auto ind = HashFunc(_key.key);
+		auto it = std::find_if(vec[ind].begin(), vec[ind].end(), 
+			[&_key](const Named_Polynom& pol) { // RU: Да, слишком сложно, но давно хотел попробовать...
+			return pol.GetKey() == _key;
+			});
+		if (it == vec[ind].end()) throw "Polynom doesn't exist";
+		*it = std::move(*(vec[ind].end() - 1));
+		vec[ind].pop_back();
+	}
+
+	Named_Polynom Search(Key _key) {
+		auto ind = HashFunc(_key.key);
+		auto it = std::find_if(vec[ind].begin(), vec[ind].end(), 
+			[&_key](const Named_Polynom& pol) { // RU: Да, слишком сложно, но давно хотел попробовать...
+			return pol.GetKey() == _key;
+			});
+		if (it == vec[ind].end()) throw "Polynom doesn't exist";
+		return *it;
+	}
+	void clear() { for(auto v:vec) v.clear();   } //I don't like it
+
 };
