@@ -2,25 +2,25 @@
 #include "tstack.h"
 #include "tqueue.h"
 #include "List.h"
+#include "heap.h"
 #include <algorithm>
 
+const int N = 15;
 
 
 int main(int argc, char** argv)
 {
 	setlocale(LC_ALL, "Russian");
-	List<int> lis;
-	for (int i = 0; i <18; ++i) lis.push_front(i);
-	//cout<<lis.find_middle()<<endl; //5
-	//cout << lis.reversed_ind(3) << endl; //6
-	//cout << lis.reversed_ind(8); //1
-	for (auto it = lis.begin(); it != lis.end(); ++it) cout << it->data<<' ';
-	//std::sort(lis.begin(), lis.end());
-	std::cout << std::endl;
-	lis.remove_after(lis.begin());
-	int t = 375;
-	lis.insert_after(t, lis.begin());
-	for (auto it = lis.begin(); it != lis.end(); ++it) cout << *it << ' ';
+	std::vector<Prior_Elem<int> > a, b;
+	for (int i = 0; i < N; ++i) {
+		int r = i;// std::rand();
+		a.push_back(Prior_Elem<int>(r, r));
+		//b.push_back(Prior_Elem<int>(r, r));
+	}
+	TPriority_queue<int>::heapSort(a);
+	for (int i = 0; i < N; ++i) {
+		std::cout << a[i].elem << '\n';
+	}
 	return 0;
 }
 
