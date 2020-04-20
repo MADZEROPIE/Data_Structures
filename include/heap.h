@@ -15,16 +15,13 @@ public:
 
 public:
 	Prior_Elem(T el, int pr=0) { elem = el; prior = pr; }
-	//bool isHigherPrior(const Prior_Elem& b){ //There is no need for that method.
-	//	return pr > b.prior;
-	//}
 };
 
 template<typename T>
 class TPriority_queue {
 private:
 	vector<Prior_Elem<T> > vec; //That's LAME.
-	int d; //Quanity of childs. That's not the best way to deal with it, but ...
+	const int d; //Quanity of childs. That's not the best way to deal with it, but ...
 private:
 	int minChild(int i) { // Well... Someday I'll make all names in one style. But not today...
 
@@ -52,7 +49,7 @@ private:
 	}
 
 	void emersion(int i) {
-		int j = i / d;
+		int j = (i-1) / d;
 		while (j != 0 && vec[i].prior < vec[j].prior) {
 			std::swap(vec[i], vec[j]);
 			i = j;
@@ -60,17 +57,15 @@ private:
 		}
 	}
 
-	void makeHeap() {
-		for (int i = vec.size() - 1; i >= 0; --i) diving(i);
-
+	void makeHeap()	{
+		for (int i = (int)vec.size() - 1; i >= 0; --i) diving(i); //Why not? Error when vec.size()>=2^32(?), but hey! where is no way for such big data (NEED FIX)
 	}
 
 
 
 public:
-	TPriority_queue(size_t size = 10, int _d = 2) : vec(10) { d = _d; } // I don't want to deal with negative numbers
-	TPriority_queue(const vector<Prior_Elem<T> >& b, int _d = 2) : vec(b) {
-		d = _d;
+	TPriority_queue(int _d = 2) : d(_d) {} 
+	TPriority_queue(const vector<Prior_Elem<T> >& b, int _d = 2) : vec(b) , d(_d){
 		//NOW It's TIME TO MAKE IT SORTED
 		makeHeap();
 	}
@@ -94,5 +89,4 @@ public:
 
 	}	
 	
-
 };
