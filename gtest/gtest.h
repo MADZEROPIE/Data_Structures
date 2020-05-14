@@ -776,11 +776,11 @@ struct AddRef<T&> { typedef T& type; };  // NOLINT
 // A handy wrapper for AddRef.
 #define GTEST_ADD_REF_(T) typename ::std::tr1::gtest_internal::AddRef<T>::type
 
-// A helper for implementing get<k>().
+// A helper for implementing get<n>().
 template <int k> class Get;
 
-// A helper for implementing tuple_element<k, T>.  kIndexValid is true
-// iff k < the number of fields in tuple type T.
+// A helper for implementing tuple_element<n, T>.  kIndexValid is true
+// iff n < the number of fields in tuple type T.
 template <bool kIndexValid, int kIndex, class Tuple>
 struct TupleElement;
 
@@ -1579,8 +1579,8 @@ get(const GTEST_10_TUPLE_(T)& t) {
 
 namespace gtest_internal {
 
-// SameSizeTuplePrefixComparator<k, k>::Eq(t1, t2) returns true if the
-// first k fields of t1 equals the first k fields of t2.
+// SameSizeTuplePrefixComparator<n, n>::Eq(t1, t2) returns true if the
+// first n fields of t1 equals the first n fields of t2.
 // SameSizeTuplePrefixComparator(k1, k2) would be a compiler error if
 // k1 != k2.
 template <int kSize1, int kSize2>
@@ -7839,18 +7839,18 @@ template<> struct EnableIf<true> { typedef void type; };  // NOLINT
 
 // Utilities for native arrays.
 
-// ArrayEq() compares two k-dimensional native arrays using the
-// elements' operator==, where k can be any integer >= 0.  When k is
+// ArrayEq() compares two n-dimensional native arrays using the
+// elements' operator==, where n can be any integer >= 0.  When n is
 // 0, ArrayEq() degenerates into comparing a single pair of values.
 
 template <typename T, typename U>
 bool ArrayEq(const T* lhs, size_t size, const U* rhs);
 
-// This generic version is used when k is 0.
+// This generic version is used when n is 0.
 template <typename T, typename U>
 inline bool ArrayEq(const T& lhs, const U& rhs) { return lhs == rhs; }
 
-// This overload is used when k >= 1.
+// This overload is used when n >= 1.
 template <typename T, typename U, size_t N>
 inline bool ArrayEq(const T(&lhs)[N], const U(&rhs)[N]) {
   return internal::ArrayEq(lhs, N, rhs);
@@ -7879,18 +7879,18 @@ Iter ArrayAwareFind(Iter begin, Iter end, const Element& elem) {
   return end;
 }
 
-// CopyArray() copies a k-dimensional native array using the elements'
-// operator=, where k can be any integer >= 0.  When k is 0,
+// CopyArray() copies a n-dimensional native array using the elements'
+// operator=, where n can be any integer >= 0.  When n is 0,
 // CopyArray() degenerates into copying a single value.
 
 template <typename T, typename U>
 void CopyArray(const T* from, size_t size, U* to);
 
-// This generic version is used when k is 0.
+// This generic version is used when n is 0.
 template <typename T, typename U>
 inline void CopyArray(const T& from, U* to) { *to = from; }
 
-// This overload is used when k >= 1.
+// This overload is used when n >= 1.
 template <typename T, typename U, size_t N>
 inline void CopyArray(const T(&from)[N], U(*to)[N]) {
   internal::CopyArray(from, N, *to);
