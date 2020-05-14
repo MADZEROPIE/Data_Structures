@@ -1,11 +1,11 @@
 //Please don't ask why... I saw something like that quite some time ago and wanted to try.
 //AND WELL... I LOVE CAPS LOCK
-//ENGLISH, ************, DO YOU SPEAK IT?!
+
 
 #include <iostream> //for output
 
 template<typename T>
-class DataKey { //that's some s***
+class DataKey { //that's some ****
 public:
 	T data; // probably better use only key w/o data
 	int key;
@@ -24,11 +24,11 @@ template<typename heir> //that's some s*** x2
 class Tree {
 public:
 
-	Tree(){ static_assert (std::is_base_of<Tree, heir>::value, "YOUR WAIFU IS NOT REAL"); } //CHANGE BEFORE RELEASE
+	Tree(){ static_assert (std::is_base_of<Tree, heir>::value, "Stop using class Tree this way"); } //CHANGE BEFORE RELEASE
 	class Node
 	{
 	public:
-		int data;//key+data
+		int data;//key+data but actually only key
 		Node* left = nullptr;
 		Node* right = nullptr;
 		short int height = 1; // Where is no(?) use for it in other trees, but who cares...
@@ -129,7 +129,7 @@ private:
 		if (n == nullptr) return n;
 		if (a < n->data) n->left = erase(n->left, a);
 		else if (a > n->data) n->right = erase(n->right, a);
-		else { //I DON'T KNOW IF IT'S CORRECT... I JUST WANNA GO SLEEP
+		else { //I DON'T KNOW IF IT'S CORRECT...
 			Node* l = n->left, *r= n->right;
 			if (l == nullptr && r==nullptr) return r;
 			else if(r != nullptr){
@@ -159,7 +159,7 @@ private:
 	}
 
 	//OUTPUT  ACTUALLY VISUALLY BROKEN WITH 16+ ELEMENTS
-	void printLevel(std::ostream& out, Node* n, short int level, short int count) { //This is sh*t actually...
+	void printLevel(std::ostream& out, Node* n, short int level, short int count) { 
 		if (n != nullptr) {
 			if (count == 1) {
 				out.width(4); out << n->data;
