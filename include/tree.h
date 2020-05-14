@@ -185,6 +185,15 @@ public:
 	void erase(int a) {
 		root = erase(root, a);
 	}
+
+	Node* search(int a) {
+		Node* tmp = root;
+		while (tmp != nullptr && tmp->data != a) {
+			if (a < tmp->data) tmp = tmp->left;
+			else tmp = tmp->right;
+		}
+		return tmp;
+	}
 	
 	friend std::ostream&  operator<<(std::ostream& out, AVL_tree& tr) {
 		auto tree_height= tr.root== nullptr ? 0 : tr.root->height;
