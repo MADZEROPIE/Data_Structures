@@ -4,7 +4,7 @@
 
 #include <iostream> //for output
 
-template<typename T>
+template<typename T> //TODO: CHANGE BEFORE RELEASE
 class DataKey { //that's some ****
 public:
 	T data; // probably better use only key w/o data
@@ -69,7 +69,7 @@ private:
 	//ROTATIONS 
 	Node* fixRotation(Node* n) { 
 		correctHeight(n);
-		if (balanceofNode(n) ==- 2)
+		if (balanceofNode(n) ==- 2) //h(n->l)-h(n->r)
 		{
 			if (balanceofNode(n->right) > 0)
 				n->right = rightRotation(n->right);
@@ -162,8 +162,9 @@ private:
 	void printLevel(std::ostream& out, Node* n, short int level, short int count) { 
 		if (n != nullptr) {
 			if (count == 1) {
-				out.width(4); out << n->data;
-				for (unsigned long int i = 0; i < ((unsigned long int)2 << level); ++i) out << "\t";
+				//out.width(4); 
+				out << n->data;
+				for (unsigned long int i = 0; i < ((unsigned long int)2 << level); ++i) out << "\t"; //That's sounds like s***
 				//out << " | ";
 			}
 			else {
@@ -175,6 +176,18 @@ private:
 			//out << "     | ";
 			for (unsigned long int i = 0; i < ((unsigned long int)2 << level); ++i) out << "\t"; 
 		}
+	}
+
+	//Check of the tree
+	bool check(Node* n) {
+		bool a1 = std::abs(balanceofNode(n))<=1;
+		if (n != nullptr) {
+			bool b1 = check(n->left);
+			bool b2 = check(n->right);
+			bool c1 = (height(n) == ((height(n->left) > height(n->right) ? height(n->left) : height(n->right)) + 1));//brackets... again...
+			return a1 & b1 & b2 & c1;
+		}
+		return a1;
 	}
 
 public:
@@ -195,6 +208,10 @@ public:
 		return tmp;
 	}
 	
+	bool checkTree() { // Just in case
+		return check(root);
+	}
+
 	friend std::ostream&  operator<<(std::ostream& out, AVL_tree& tr) {
 		auto tree_height= tr.root== nullptr ? 0 : tr.root->height;
 		for (short int i = 1; i <= tree_height; ++i) {

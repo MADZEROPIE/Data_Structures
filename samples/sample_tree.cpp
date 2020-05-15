@@ -11,12 +11,19 @@ int main(int argc, char** argv)
 	AVL_tree tr;
 	for (int i = 0; i < 12; ++i)
 		tr.insert(i);
+	
+	std::cout << std::boolalpha << tr.checkTree()<<'\n';
 	std::cout << tr <<"\n\n\n";
-	tr.erase(7);
+	tr.erase(0);
+	std::cout << std::boolalpha << tr.checkTree() << '\n';
 	std::cout << tr << "\n\n\n";
-	tr.insert(7);
+	//tr.insert(7);
+	//std::cout << tr << "\n\n\n";
+	tr.erase(1);
+	std::cout << std::boolalpha << tr.checkTree() << '\n';
 	std::cout << tr << "\n\n\n";
-	tr.erase(11);
+	tr.insert(1);
+	std::cout << std::boolalpha << tr.checkTree() << '\n';
 	std::cout << tr << "\n\n\n";
 	return 0;
 }
