@@ -140,15 +140,7 @@ private:
 				return fixRotation(n);
 			}
 			else {
-				Node* tmp = l;
-				while (tmp->right != nullptr) {
-					tmp = tmp->right;
-				}
-				n->data = tmp->data;
-				n->left = eraseLeftMax(l);
-				n->right = r;
-				delete tmp;
-				return fixRotation(n);
+				return l;// I forgot that this is AVL tree
 			}
 		}
 		return fixRotation(n);
@@ -185,6 +177,13 @@ private:
 		}
 		return a1;
 	}
+	void clean(Node* n) {
+		if (n != nullptr) {
+			clean(n->left);
+			clean(n->right);
+			delete n;
+		}
+	}
 
 public:
 	void insert(const int a) {
@@ -203,7 +202,10 @@ public:
 		}
 		return tmp;
 	}
-	
+	void clean() {
+		clean(root);
+	}
+
 	bool checkTree() { // Just in case
 		return check(root);
 	}
@@ -216,4 +218,5 @@ public:
 		}
 		return out;
 	}
+	~AVL_tree() { clean(root); }
 };
