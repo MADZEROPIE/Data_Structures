@@ -67,18 +67,14 @@ private:
 	}
 
 	//ROTATIONS 
-	Node* fixRotation(Node* n) { 
+	Node* fixRotation(Node* n) { //rewrite ... I wanna read it someday, but ... /(9_9)\      /
 		correctHeight(n);
-		if (balanceofNode(n) ==- 2) //h(n->l)-h(n->r)
-		{
-			if (balanceofNode(n->right) > 0)
-				n->right = rightRotation(n->right);
+		if (balanceofNode(n) ==- 2) {//h(n->l)-h(n->r)
+			if (balanceofNode(n->right) > 0) n->right = rightRotation(n->right); //right+left = big left rotation
 			return leftRotation(n);
 		}
-		else if (balanceofNode(n) == 2)
-		{
-			if (balanceofNode(n->left) < 0)
-				n->left = leftRotation(n->left);
+		else if (balanceofNode(n) == 2){
+			if (balanceofNode(n->left) < 0) n->left = leftRotation(n->left); //left+right = big right rotation
 			return rightRotation(n);
 		}
 		return n;
@@ -111,14 +107,14 @@ private:
 	}
 
 	//DELETE NODES
-	Node* eraseLeftMax(Node* n) {
+	Node* eraseLeftMax(Node* n) { //no operator delete there. only rewrite last right node with his left node
 		if (n->right == nullptr)
 			return n->left;
 		n->right = eraseLeftMax(n->right);
 		return fixRotation(n);
 	}
 
-	Node* eraseRightMin(Node* n) {
+	Node* eraseRightMin(Node* n) { //no operator delete there
 		if (n->left == nullptr)
 			return n->right;
 		n->left = eraseRightMin(n->left);
@@ -129,7 +125,7 @@ private:
 		if (n == nullptr) return n;
 		if (a < n->data) n->left = erase(n->left, a);
 		else if (a > n->data) n->right = erase(n->right, a);
-		else { //I DON'T KNOW IF IT'S CORRECT...
+		else { //well... It's just work... somehow...
 			Node* l = n->left, *r= n->right;
 			if (l == nullptr && r==nullptr) return r;
 			else if(r != nullptr){
@@ -137,7 +133,7 @@ private:
 				while (tmp->left != nullptr) {
 					tmp = tmp->left;
 				}
-				n->data = tmp->data;
+				n->data = tmp->data; //node rules are not violated at this point
 				n->right = eraseRightMin(r);
 				n->left = l;
 				delete tmp;
